@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('title')
+ Create Type
+@endsection
 @section('content')
 
 <div class="card card-default">
@@ -37,7 +39,7 @@
 			<div class="form-group">
 				<button class="btn btn-success">
 						@if(isset($type))
-						<i style="margin-right:3px;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<i style="margin-right:3px;" class="fas fa-pen"></i>
 							 Update type
 					  	@else
 						  <i style="margin-right:3px;"class="fa fa-plus-circle" aria-hidden="true"></i>

@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('title')
+ Types
+@endsection
 @section('content')
 
 <div class="card card-default">
@@ -20,11 +22,11 @@
 		  	<tr>
 		  		<td>{{$type->name}}</td>
 		  		<td>
-		  			{{$type->doctor()->count()}}
+		  			{{$type->user()->count()}}
 		  		</td>
 		  		<td>
-		  			<a href="{{route('types.edit',$type->id)}}" class="btn btn-info btn-sm "><i style="margin-right:3px;" class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
-		  			<button class="btn btn-danger btn-sm" onclick="handleDelete({{$type->id}})"><i style="margin-right:3px;" class="fa fa-trash-o" aria-hidden="true"></i>Delete</button>
+		  			<a href="{{route('types.edit',$type->id)}}" class="btn btn-info btn-sm "><i style="margin-right:3px;" class="far fa-edit"></i>Edit</a>
+		  			<button class="btn btn-danger btn-sm" onclick="handleDelete({{$type->id}})"><i style="margin-right:3px;" class="fas fa-trash-alt"></i>Delete</button>
 		  		</td>
 		  	</tr>
 		  	@endforeach

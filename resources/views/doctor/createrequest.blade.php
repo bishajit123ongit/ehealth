@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('title')
+ Create Request
+@endsection
 @section('content')
 
 <div class="card card-default">

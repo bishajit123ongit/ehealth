@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 
+
+@section('title')
+ View Request
+@endsection
+
 @section('content')
 <div class="card card-default">
 	<div class="card-header">
@@ -22,15 +27,7 @@
 		  	<tr>
             <td>
               
-			  @if($row->status==0)
-			  <i style="margin-right:3px;" class="fa fa-times" aria-hidden="true"></i>
-			  <a href="#">Approve</a>
-                
-                @else
-				<i class="fa fa-check" aria-hidden="true"></i>
-				<a href="#">Approved</a>
-				
-                @endif
+			  <a href="{{route('connect.patient', $row->doctor_id)}}">Yes</a>
                
             </td>
 		  	<td>{{$row->patientRequest['id']}}</td>

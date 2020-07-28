@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('title')
+ Doctors
+@endsection
 @section('content')
 <div class="card card-default">
 	<div class="card-header">
@@ -8,9 +11,10 @@
 
 	<div class="card-header">
 	@if($doctors->count()>0)
-	<table class="table">
+	<table style="margin-bottom:20px;" class="table table-dark">
 		  <thead>
-        <th>Id</th>
+            <th>Id</th>
+			<th>Image</th>
 		  	<th>Name</th>
 		  	<th>Email</th>
 		  	<th>Type</th>
@@ -21,13 +25,21 @@
 		  	@foreach($doctors as $doctor)
 		  	<tr>
           <td>{{$doctor->id}}</td>
+		  <td><img style="width:45px; height:45px; border-radius:50%;" src="{{asset($doctor->image)}}" alt=""></td>
 		  		<td>{{$doctor->name}}</td>
 		  		<td>
 		  			{{$doctor->email}}
 		  		</td>
-          <td>
-		  			{{$doctor->type->name}}
-		  		</td>
+				  @if(auth()->user()->isAdmin())
+				<td>
+					<a href="{{route('types.edit',$doctor->type->id)}}">{{$doctor->type->name}}</a>
+				</td>
+				@else
+				<td>
+					{{$doctor->type->name}}
+				</td>
+				@endif
+
           <td>
 		  			{{$doctor->qualification}}
 		  		</td>
@@ -36,7 +48,8 @@
 		  		</td>
 				  @if(auth()->user()->isAdmin())
 		  		<td>
-		  			<button class="btn btn-danger btn-sm" onclick="handleDelete({{$doctor->id}})"><i style="margin-right:3px;"  class="fa fa-trash-o" aria-hidden="true"></i>Delete</button>
+				  <a href="{{route('doctors.edit',$doctor->id)}}" class="btn btn-info btn-sm "><i style="margin-right:3px;" class="far fa-edit"></i>Edit</a>
+		  			<button class="btn btn-danger btn-sm" onclick="handleDelete({{$doctor->id}})"><i style="margin-right:3px;"  class="fas fa-trash-alt"></i>Delete</button>
 		  		</td>
 				  @endif
 		  	</tr>

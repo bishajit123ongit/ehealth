@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('title')
+ Patient Request
+@endsection
 @section('content')
 
 <div class="card card-default">

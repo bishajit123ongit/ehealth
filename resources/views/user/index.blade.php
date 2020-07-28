@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('title')
+ Users
+@endsection
 @section('content')
 
 <div class="card card-default">
@@ -9,9 +11,10 @@
 <div class="card-body">
 	@if($users->count() > 0)
 	
-        <table class="table">
+        <table class="table table-dark">
 		  <thead>
 		  	<th>Id</th>
+			<th>Profile Pic</th>
 		  	<th>Name</th>
 		  	<th>Email</th>
 		  </thead> 
@@ -19,6 +22,7 @@
 		  	@foreach($users as $user)
 		  	<tr>
 		  		<td>{{$user->id}}</td>
+				<td><img style="width:45px;height:45px;border-radius:50%;" src="{{asset($user->image)}}" alt=""></td>
 		  		<td>
 		  			{{$user->name}}
 		  		</td>

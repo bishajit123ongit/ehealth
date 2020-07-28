@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('title')
+ Create Doctor
+@endsection
 @section('content')
 <div class="card card-default">
 	<div class="card-header">
@@ -11,10 +14,16 @@
     
 	</div>
 	<div style="padding-bottom: 30px;" class="card-body">
-		<form action="{{isset($doctor) ? route('doctors.update',$doctor->id) :route('doctors.store')}}" method="POST">
+		<form enctype="multipart/form-data" action="{{isset($doctor) ? route('doctors.update',$doctor->id) :route('doctors.store')}}" method="POST">
 			@csrf
 			@if(isset($doctor))
 			  @method('PUT')
+			@endif
+
+            @if(isset($doctor))
+			<div class="form-group">
+			 <img style="width:130px; height:130px; border-radius:50%;"  src="{{asset($doctor->image)}}" alt="">
+			</div>
 			@endif
 			<div class="form-group">
 				<label for="name">Name</label>
@@ -69,6 +78,11 @@
 			</div>
 
 			<div class="form-group">
+				<label for="image">Image</label>
+				<input type="file" name="image" id="image" class="form-control">  
+			</div>
+
+			<div class="form-group">
 				<label for="qualification">Qualification</label>
                 <input type="text" id="qualification" name="qualification" value="{{isset($doctor)? $doctor->qualification : ''}}" class="form-control" required autocomplete="qualification">
 			</div>
@@ -83,7 +97,7 @@
 				<button type="submit" class="btn btn-success">
 				
 				  @if(isset($doctor))
-					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<i class="fas fa-pen"></i>
   					 Update
   					@else
 					  <i style="margin-right:3px;"class="fa fa-plus-circle" aria-hidden="true"></i>

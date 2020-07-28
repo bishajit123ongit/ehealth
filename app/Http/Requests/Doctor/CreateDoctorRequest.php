@@ -28,7 +28,8 @@ class CreateDoctorRequest extends FormRequest
             'email' => 'required|unique:doctors',
             'password' => 'required',
             'type' => 'required',
-            'qualification'=>'required'
+            'qualification'=>'required',
+            'image'=>'required|image'
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Doctor;
+use App\User;
 use App\Http\Requests\Doctor\CreateDoctorRequest;
 use App\Http\Requests\Doctor\UpdateDoctorRequest;
 use Illuminate\Support\Facades\Hash;
@@ -26,17 +26,26 @@ class DoctorController extends Controller
     
     public function index()
     {
-        return view('doctor.index')->with('doctors',Doctor::all());
+        $doctors=User::where('role','doctor')->get();
+        return view('doctor.index')->with('doctors',$doctors);
     }
 
     public function viewAdminRequest(){
 
         $doctorsRequest=DoctorsRequest::where([
-         'doctor_id'=>auth('doctor')->user()->id,
+         'doctor_id'=>auth()->user()->id,
          'status'=>0
 
         ])->get();
        return view('doctor.viewrequest')->with('doctorsRequest',$doctorsRequest);
+    }
+
+    public function connectPatient($id){
+         $user=User::all()->where('id',$id)->first();
+         $user->requeststatus=1;
+         $user->save();
+         return redirect(route('chat'));
+
     }
 
     /**
@@ -57,14 +66,25 @@ class DoctorController extends Controller
      */
     public function store(CreateDoctorRequest $request)
     {
-        $doctor=new Doctor();
-        $doctor->name=$request->name;
-        $doctor->email=$request->email;
-        $doctor->password=Hash::make($request->password);
-        $doctor->type_id=$request->type;
-        $doctor->qualification=$request->qualification;
-        $doctor->mobile=$request->mobile;
-        $doctor->save();
+        //upload the file to the storage
+        $image=$request->file('image');
+        $image_name=hexdec(uniqid());
+        $ext=strtolower($image->getClientOriginalExtension());
+        $image_full_name=$image_name.'.'.$ext;
+        $upload_path='image/';
+        $image_url=$upload_path.$image_full_name;
+        $success=$image->move($upload_path,$image_full_name);
+
+        $user=new User();
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password=Hash::make($request->password);
+        $user->type_id=$request->type;
+        $user->qualification=$request->qualification;
+        $user->mobile=$request->mobile;
+        $user->role='doctor';
+        $user->image=$image_url;
+        $user->save();
 
         session()->flash('success','Doctor add successfully!');
 
@@ -88,9 +108,10 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Doctor $doctor)
+    public function edit($id)
     {
-        return view('doctor.create')->with('doctor',$doctor)->with('types',Type::all());
+        $user=User::all()->where('id',$id)->first();
+        return view('doctor.create')->with('doctor',$user)->with('types',Type::all());
     }
 
     /**
@@ -100,19 +121,38 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDoctorRequest $request, Doctor $doctor)
+    public function update(UpdateDoctorRequest $request, User $doctor)
     {
+        $image=$request->file('image');
+
+        if($image){
+            $image_name=hexdec(uniqid());
+            $ext=strtolower($image->getClientOriginalExtension());
+            $image_full_name=$image_name.'.'.$ext;
+            $upload_path='image/';
+            $image_url=$upload_path.$image_full_name;
+            $success=$image->move($upload_path,$image_full_name);
+            if($doctor->image!='image/user.png')
+              unlink($doctor->image);
+
+            $doctor->update([
+                'name'=>$request->name,
+                'type_id'=>$request->type,
+                'qualification'=>$request->qualification,
+                'mobile'=>$request->mobile,
+                'image'=>$image_url
+              ]);
+            }
+            else{
+
         $doctor->update([
             'name'=>$request->name,
             'type_id'=>$request->type,
             'qualification'=>$request->qualification,
             'mobile'=>$request->mobile
         ]);
-
-     
+        }
         session()->flash('success','Doctor updated successfully!');
-        if(auth('doctor')->user())
-        return redirect()->back();
         return redirect(route('doctors.index'));
     }
 
@@ -122,7 +162,7 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Doctor $doctor)
+    public function destroy(User $doctor)
     {
         $doctor->delete();
         session()->flash('success','Doctor Deleted Successfully!');

@@ -7,6 +7,7 @@ use App\Http\Requests\Doctor\SendDoctorRequest;
 use App\DoctorsRequest;
 use App\PatientRequest;
 use App\Doctor;
+use App\User;
 
 class DoctorsRequestController extends Controller
 {
@@ -16,7 +17,7 @@ class DoctorsRequestController extends Controller
 
     public function storeDoctorRequest(SendDoctorRequest $request){
      
-       $doctor=Doctor::all()->where('id',$request->doctor_id)->first();
+       $doctor=User::all()->where('id',$request->doctor_id)->first();
        $patientRequest=PatientRequest::all()->where('id',$request->patientrequest_id)->first();
 
        if($doctor!=null)

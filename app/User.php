@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','about',
+        'name', 'email', 'password','about','mobile','qualification','type_id','requeststatus','image',
     ];
 
     /**
@@ -42,6 +43,14 @@ class User extends Authenticatable
         return $this->role=='admin';
     }
 
+    public function isDoctor(){
+        return $this->role=='doctor';
+    }
+
+    public function isUser(){
+        return $this->role=='user';
+    }
+
     public function patientRequest()
     {
     	return $this->hasMany(PatientRequest::class);
@@ -49,5 +58,15 @@ class User extends Authenticatable
     public function message() 
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function type()
+    {
+            return $this->belongsTo(Type::class);  
+    }
+
+    public function feedback()
+    {
+    	return $this->hasOne(Feedback::class);
     }
 }

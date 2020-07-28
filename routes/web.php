@@ -15,14 +15,16 @@ use App\Events\ChatEvent;
 
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
 
   //broadcast(new ChatEvent('some date'));
     return view('welcome');
-});
+});*/
 
 Auth::routes();
 
+Route::get('/','WelcomeController@index')->name('welcome');
+Route::get('welcome/type/{type}','WelcomeController@typeByCategory')->name('welcome.type');
 
 
 
@@ -38,7 +40,10 @@ Route::view('/doctor', 'doctor')->middleware('doctorauth');
 Route::middleware(['auth'])->group(function(){
   
   Route::get('users/profile','UserController@edit')->name('users.edit-profile');
-    
+  Route::get('connect/{id}/profile','DoctorController@connectPatient')->name('connect.patient');
+  Route::resource('feedbacks','FeedbackController');
+
+  Route::get('users','UserController@index')->name('users.index');
   Route::put('Update/Users','UserController@update')->name('users.update-profile');
   Route::get('request/admin','PatientRequestController@create')->name('patients.create');
   Route::post('request/store','PatientRequestController@store')->name('patients.store');
@@ -50,7 +55,6 @@ Route::middleware(['auth'])->group(function(){
 
 
 Route::middleware(['adminordoctor'])->group(function(){
-  Route::get('users','UserController@index')->name('users.index');
   Route::resource('types','TypeController');
 
 });
@@ -61,11 +65,17 @@ Route::middleware(['allroleauth'])->group(function(){
 });
 
 //chat
-Route::get('chat','ChatController@chat');
+/*Route::get('chat','ChatController@chat');
 Route::post('send','ChatController@send');
 Route::post('saveToSession','ChatController@saveToSession');
 Route::post('deleteSession','ChatController@deleteSession');
 Route::post('getOldMessage','ChatController@getOldMessage');
 Route::get('check',function(){
 	return session('chat');
-});
+});*/
+
+Route::get('/contacts', 'ContactsController@get');
+Route::get('/conversation/{id}', 'ContactsController@getMessagesFor');
+Route::post('/conversation/send', 'ContactsController@send');
+Route::get('/chat', 'ContactsController@index')->name('chat');
+

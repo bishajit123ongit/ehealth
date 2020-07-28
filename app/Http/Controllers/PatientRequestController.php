@@ -19,11 +19,11 @@ class PatientRequestController extends Controller
         $patientRequest->symtomps=$request->symtomps;
         $patientRequest->user_id=auth()->user()->id;
         $patientRequest->save();
+        auth()->user()->requeststatus=1;
+        auth()->user()->save();
 
-        
-        session()->flash('success','Patients request successfully send to the admin!');
 
-        return redirect()->back();
+        return redirect(route('chat'));
     }
 
     public function changeStatus($id){

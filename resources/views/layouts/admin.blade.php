@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>@yield('title')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="{{asset('frontend/menu/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('frontend/menu/plugins/summernote/summernote-bs4.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/fontawesome/css/fontawesome.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 @yield('css')
@@ -52,33 +53,29 @@
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
       <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-           @auth
-           {{Auth::user()->name}}
-           @else
-           {{Auth('doctor')->user()->name}}
-           @endauth         
+           
+           {{Auth::user()->name}}      
         <span class="caret"></span>
        </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                   @auth
+                   @if(!auth()->user()->isDoctor())
                 	 <a class="dropdown-item" href="{{ route('users.edit-profile') }}">
                    <i class="fa fa-user-md" aria-hidden="true"></i>
                                         User Profile
                      </a>
-                     @endauth
-                     @auth('doctor')
-                     <a class="dropdown-item" href="{{route('doctors.edit',auth('doctor')->user()->id)}}">
+                     @else
+                     <a class="dropdown-item" href="{{route('doctors.edit',auth()->user()->id)}}">
                     <i class="fa fa-user-md" aria-hidden="true"></i>
                                         Doctor Profile
                      </a>
-                     @endauth
+                     @endif
 
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                     <i class="fas fa-sign-out-alt"></i>
                          Logout
                     </a>
 
@@ -94,7 +91,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{route('welcome')}}" class="brand-link">
       <img src="{{asset('frontend/menu/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">E-Health</span>
@@ -105,15 +102,11 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('frontend/menu/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img style="width:35px; height:35px;" src="{{asset(auth()->user()->image)}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
-          @auth
            {{Auth::user()->name}}
-           @else
-           {{Auth('doctor')->user()->name}}
-           @endauth   
           </a>
         </div>
       </div>
@@ -208,7 +201,7 @@
           @endauth
 
    
-         @auth
+        
           @if(auth()->user()->isAdmin())
           <li class="nav-item">
             <a href="{{route('users.index')}}" class="nav-link {{ (request()->is('users')) ? 'active' : '' }}">
@@ -219,7 +212,8 @@
             </a>
           </li>
           @endif
-          @else
+
+          @if(auth()->user()->isDoctor())
           <li class="nav-item">
             <a href="{{route('users.index')}}" class="nav-link {{ (request()->is('users')) ? 'active' : '' }}">
             <i class="nav-icon fa fa-users" aria-hidden="true"></i>
@@ -228,11 +222,11 @@
               </p>
             </a>
           </li>
-          @endauth
+          @endif
 
           
           @auth
-          <li class="nav-item has-treeview {{ (request()->is('view/request')) ||  (request()->is('request/admin')) || (request()->is('create/doctorrequest'))? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ (request()->is('view/adminrequest')) || (request()->is('view/request')) ||  (request()->is('request/admin')) || (request()->is('create/doctorrequest'))? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
             <i class="nav-icon fa fa-user-md" aria-hidden="true"></i>
               <p>
@@ -255,8 +249,8 @@
                   <p>Send Request Doctor</p>
                 </a>
             </li>
-            @else
-
+            @endif
+            @if(auth()->user()->isUser())
               <li class="nav-item">
                 <a href="{{route('patients.create')}}" class="nav-link {{ (request()->is('request/admin')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
@@ -265,25 +259,15 @@
               </li>
 
               @endif
-
-             </ul>
-          </li>
-          @else
-          <li class="nav-item has-treeview {{ (request()->is('view/adminrequest')) ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-user-md" aria-hidden="true"></i>
-              <p>
-                Request
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
+              @if(auth()->user()->isDoctor())
               <li class="nav-item">
                 <a href="{{route('view-admin.request')}}" class="nav-link {{ (request()->is('view/adminrequest')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>View Doctor Request</p>
                 </a>
               </li>
+              @endif
+
              </ul>
           </li>
 
@@ -321,47 +305,30 @@
             </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-asterisk" aria-hidden="true"></i>
-              <p>
-               Details
-              </p>
-            </a>
-          </li>
-
           @auth
           @if(auth()->user()->isAdmin())
           <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-comment-o" aria-hidden="true"></i>
+            <a href="{{route('feedbacks.index')}}" class="nav-link {{ (request()->is('feedbacks')) ? 'active' : '' }}">
+            <i class="nav-icon far fa-comments"></i>
               <p>
                View Feedback
               </p>
             </a>
           </li>
           @endif
-          @if(!auth()->user()->isAdmin())
+          @endauth
+
+          @auth
+          @if(auth()->user()->isUser())
           <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-comment-o" aria-hidden="true"></i>
+            <a href="{{route('feedbacks.create')}}" class="nav-link {{ (request()->is('feedback/create')) ? 'active' : '' }}">
+            <i class="nav-icon far fa-comments"></i>
               <p>
                Given Feedback
               </p>
             </a>
           </li>
           @endif
-          @endauth
-
-          @auth('doctor')
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-comment-o" aria-hidden="true"></i>
-              <p>
-               Given Feedback
-              </p>
-            </a>
-          </li>
           @endauth
        
         </ul>
@@ -388,8 +355,8 @@
     @yield('content')
   </div>
   <!-- /.content-wrapper -->
-  <footer style="position:fixed;bottom:0px;" class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+  <footer style="position:fixed;bottom:0px;  width:calc(100% - 20px)!important;" class="main-footer">
+    <strong>Copyright &copy; 2015-2020 <a target="_blank" href="https://www.facebook.com/messages/t/100009185542916">Tuhin</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.5
