@@ -15,6 +15,7 @@
             <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
           </div>
         </div>	
+
 				<div class="row">
         @forelse($doctors as $doctor)
 					<div class="col-md-6 col-lg-3 ftco-animate">
@@ -33,6 +34,9 @@
 		                <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
 		                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
 		              </ul>
+                  <p><a href="{{route('doctor.book',$doctor->id)}}" class="btn btn-primary">Book now</a></p>
+                 
+
 	              </div>
 							</div>
 						</div>

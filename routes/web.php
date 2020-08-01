@@ -42,6 +42,19 @@ Route::middleware(['auth'])->group(function(){
   Route::get('users/profile','UserController@edit')->name('users.edit-profile');
   Route::get('connect/{id}/profile','DoctorController@connectPatient')->name('connect.patient');
   Route::resource('feedbacks','FeedbackController');
+  Route::resource('schedules','ScheduleController');
+  Route::resource('bookings','BookingController');
+  Route::get('bookings','BookingController@index')->name('bookings.index');
+
+  Route::get('appointment/{id}/change-status','ScheduleController@changeStatus')->name('appointment.change-status');
+  
+  Route::get('appointment/{id}/change-confirm','UserController@changeConfirm')->name('appointment.change-confirm');
+ 
+  Route::get('appointment','UserController@appoint')->name('appointment.index');
+  Route::get('appointment/list','ScheduleController@appointmentList')->name('appointment.list');
+
+  Route::get('doctor/{id}/book','DoctorController@book')->name('doctor.book');
+  Route::get('booking/{id}/create','ScheduleController@bookDoctor')->name('booking.create');
 
   Route::get('users','UserController@index')->name('users.index');
   Route::put('Update/Users','UserController@update')->name('users.update-profile');

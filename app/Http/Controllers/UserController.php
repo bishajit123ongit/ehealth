@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Booking;
 use App\Http\Requests\Users\UpdateProfileRequest;
 
 class UserController extends Controller
@@ -48,4 +49,26 @@ class UserController extends Controller
         session()->flash('success','User Updated successfully!!');
         return redirect()->back();
     }
+
+    public function appoint(){
+      $booking=Booking::where('status','=',1)
+      ->where('user_id','=',auth()->user()->id)
+      ->get();
+
+      return view('user.appoint')->with('appointments',$booking);
+    }
+
+    public function changeConfirm($id){
+
+      $booking=Booking::all()->where('id',$id)->first();
+      if($booking->confirm==0){
+          $booking->confirm=1;
+      }
+      else if($booking->confirm==1){
+          $booking->confirm=0;
+      }
+      $booking->save();
+      return redirect(route('appointment.index'));
+
+  }
 }

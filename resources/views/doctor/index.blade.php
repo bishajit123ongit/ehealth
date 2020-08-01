@@ -18,8 +18,8 @@
 		  	<th>Name</th>
 		  	<th>Email</th>
 		  	<th>Type</th>
-        <th>Qualification</th>
-        <th>Mobile</th>
+			<th>Qualification</th>
+			<th>Mobile</th>
 		  </thead> 
 		  <tbody>
 		  	@foreach($doctors as $doctor)

@@ -9,6 +9,7 @@ use App\Http\Requests\Doctor\UpdateDoctorRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
 use App\Type;
+use App\Schedule;
 use App\DoctorsRequest;
 
 class DoctorController extends Controller
@@ -167,5 +168,13 @@ class DoctorController extends Controller
         $doctor->delete();
         session()->flash('success','Doctor Deleted Successfully!');
         return redirect(route('doctors.index'));
+    }
+
+    public function book($id){
+        $doctorSchedule=Schedule::where('doctor_id',$id)->get();
+        $doctor=User::all()->where('id',$id)->first();
+        return view('doctor.booking')
+        ->with('doctor',$doctor)
+        ->with('doctorSchedule',$doctorSchedule);
     }
 }

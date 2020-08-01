@@ -272,7 +272,58 @@
           </li>
 
           @endauth
+          @if(auth()->user()->isUser())
+          <li class="nav-item">
+            <a href="{{route('appointment.index')}}" class="nav-link {{ (request()->is('appointment')) ? 'active' : '' }}">
+            <i class="nav-icon fa fa-users" aria-hidden="true"></i>
+              <p>
+               Appoint Doctor
+              </p>
+            </a>
+          </li>
+          @endif
+          
+          @auth
+          @if(auth()->user()->isDoctor())
+          <li class="nav-item has-treeview {{ (request()->is('schedules/create')) || (request()->is('schedules')) || (request()->is('bookings')) || (request()->is('appointment/list'))  ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+            <i style="margin-right: 8px; margin-left:5px;"class="fa fa-tags" aria-hidden="true"></i>
+              <p>
+                Schedule
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('schedules.create')}}" class="nav-link {{ (request()->is('schedules/create')) ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add schedule</p>
+                </a>
+              </li>
+           
+              <li class="nav-item">
+                <a href="{{route('schedules.index')}}" class="nav-link {{ (request()->is('schedules')) ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Schedules</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('bookings.index')}}" class="nav-link {{ (request()->is('bookings')) ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Appointment request</p>
+                </a>
+              </li>
 
+              <li class="nav-item">
+                <a href="{{route('appointment.list')}}" class="nav-link {{ (request()->is('appointment/list')) ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Appointment List</p>
+                </a>
+              </li>
+          </ul>
+      </li>
+          @endif
+          @endauth
           
 
           <li class="nav-item has-treeview">

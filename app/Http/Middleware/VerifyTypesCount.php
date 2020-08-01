@@ -19,7 +19,7 @@ class VerifyTypesCount
 
         if(Type::all()->count()==0){
             session()->flash('error','You need add type to able to create doctor.');
-            return redirect()->back();
+            return redirect(route('types.create'));
         }
         return $next($request);
     }
