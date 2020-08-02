@@ -64,6 +64,10 @@ Route::middleware(['auth'])->group(function(){
   Route::get('patient/{patientRequest}/change-status','PatientRequestController@changeStatus')->name('patient.change-status');
   Route::get('create/doctorrequest','DoctorsRequestController@createDoctorRequest')->name('create-doctor.request');
   Route::post('send/doctorrequest','DoctorsRequestController@storeDoctorRequest')->name('doctorsrequest.store');
+
+  Route::get('booking/{id}/pdf','BookingController@viewBookingPdf')->name('booking.pdf');
+  Route::get('appoint/list/pdf','DoctorController@viewAppointListPdf')->name('appoint-list.pdf');
+
 });
 
 

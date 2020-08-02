@@ -74,4 +74,8 @@ class User extends Authenticatable
         return $this->hasMany(Schedule::class);
     }
 
+    public function booking(){
+        return $this->hasOne(Booking::class);
+    }
+
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Booking;
+use PDF;
+use App\User;
 
 class BookingController extends Controller
 {
@@ -90,5 +92,17 @@ class BookingController extends Controller
        $booking->delete();
         session()->flash('success','Appointments Deleted Successfully!');
         return redirect(route('bookings.index'));
+    }
+
+    public function viewBookingPdf($id){
+       $bookings=Booking::all()->where('id',$id)->first();
+       $doctor=User::all()->where('id',$bookings->doctor_id)->first();
+       $user=User::all()->where('id',auth()->user()->id)->first();
+      // return view('downloadpdf.booking',compact('bookings','doctor','user'));
+       $pdf = PDF::loadView('downloadpdf.booking',compact('bookings','doctor','user'));
+       $name=auth()->user()->name.''.auth()->user()->id.'.'.'pdf';
+       print_r($name);
+  
+       return $pdf->download($name);
     }
 }

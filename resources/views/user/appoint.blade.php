@@ -40,6 +40,13 @@
             
                 @endif
             </td>
+
+            @if($row->confirm==1)
+         
+              <td>
+              <a href="{{route('booking.pdf',$row->id)}}"><i class="fas fa-download"></i></a>
+              </td>
+            @endif
 				  
 		  	</tr>
 		  	@endforeach

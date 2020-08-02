@@ -17,7 +17,8 @@
 		  	<th>Schedule Id</th>
 			<th>Day</th>
             <th>Start time</th>
-            <th>End Time</th>
+			<th>End Time</th>
+			<th><a href="{{route('appoint-list.pdf')}}"><i class="fas fa-download"></i></a></th>
 		  </thead> 
 		  <tbody>
 		  	@foreach($appointments as $row)

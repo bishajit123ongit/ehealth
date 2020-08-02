@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\App;
 use App\Type;
 use App\Schedule;
 use App\DoctorsRequest;
+use PDF;
+use App\Booking;
 
 class DoctorController extends Controller
 {
@@ -176,5 +178,20 @@ class DoctorController extends Controller
         return view('doctor.booking')
         ->with('doctor',$doctor)
         ->with('doctorSchedule',$doctorSchedule);
+    }
+
+    public function viewAppointListPdf(){
+        $bookings=Booking::where('confirm','=',1)
+        ->where('status','=',1)
+        ->where('doctor_id','=',auth()->user()->id)
+        ->get();
+
+        $name=auth()->user()->name.''.auth()->user()->id.'.'.'pdf';
+       // return view('doctor.test',compact('doctors'));
+       $pdf = PDF::loadView('downloadpdf.appointmentlist',compact('bookings'));
+  
+        return $pdf->download($name);
+       
+
     }
 }
