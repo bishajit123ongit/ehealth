@@ -5,7 +5,6 @@
 					<div class="col-md-5 heading-section heading-section-white">
 						<span class="subheading">Fun facts</span>
 						<h2 class="mb-4">Over 5,100 patients trust us</h2>
-						<p class="mb-0"><a href="#" class="btn btn-secondary px-4 py-3">Make an appointment</a></p>
 					</div>
 					<div class="col-md-7">
 						<div class="row pt-4">

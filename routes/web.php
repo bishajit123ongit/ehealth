@@ -34,12 +34,15 @@ Route::get('/register/doctor', 'Auth\RegisterController@showDoctorRegisterForm')
 Route::post('/login/doctor', 'Auth\LoginController@doctorLogin');
 Route::post('/register/doctor', 'Auth\RegisterController@createDoctor');
 
-Route::view('/home', 'home')->middleware('auth');
+Route::view('/dashboard', 'dashboard')->middleware('auth');
 Route::view('/doctor', 'doctor')->middleware('doctorauth');
 
 Route::middleware(['auth'])->group(function(){
   
   Route::get('users/profile','UserController@edit')->name('users.edit-profile');
+  Route::post('change/password','UserController@changePassword')->name('change.password');
+
+
   Route::get('connect/{id}/profile','DoctorController@connectPatient')->name('connect.patient');
   Route::resource('feedbacks','FeedbackController');
   Route::resource('schedules','ScheduleController');
@@ -68,11 +71,14 @@ Route::middleware(['auth'])->group(function(){
   Route::get('booking/{id}/pdf','BookingController@viewBookingPdf')->name('booking.pdf');
   Route::get('appoint/list/pdf','DoctorController@viewAppointListPdf')->name('appoint-list.pdf');
 
+  Route::get('dashboard','DashboardController@index')->name('dashboard.all');
+  Route::resource('types','TypeController');
+
 });
 
 
 Route::middleware(['adminordoctor'])->group(function(){
-  Route::resource('types','TypeController');
+ 
 
 });
 

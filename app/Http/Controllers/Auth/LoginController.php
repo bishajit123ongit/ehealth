@@ -43,7 +43,7 @@ class LoginController extends Controller
     }
     public function showDoctorLoginForm()
     {
-        return view('auth.login', ['url' => 'doctor']);
+        return view('auth.login', ['url' => ' ']);
     }
 
     public function doctorLogin(Request $request)

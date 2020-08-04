@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Booking;
 use App\Http\Requests\Users\UpdateProfileRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -70,5 +71,28 @@ class UserController extends Controller
       $booking->save();
       return redirect(route('appointment.index'));
 
+  }
+
+  public function changePassword(Request $request){
+    $user=User::all()->where('id',auth()->user()->id)->first();
+    
+
+    if(Hash::check($request->oldpassword,$user->password)){
+      if($request->newpassword==$request->retypenewpassword){
+             $user->password=Hash::make($request->newpassword);
+             $user->save();
+       session()->flash('success','Password change successfully!');
+        return redirect()->back();
+
+      }
+      else{
+        session()->flash('error','New and retype new password not match!');
+        return redirect()->back();
+      }
+    }
+    else{
+      session()->flash('error','Old password not match');
+        return redirect()->back();
+    }
   }
 }

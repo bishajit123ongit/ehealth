@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  
     <title>@yield('title')</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('asset/css/open-iconic-bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('asset/css/animate.css')}}">
 
@@ -21,6 +22,9 @@
     <link rel="stylesheet" href="{{asset('asset/css/flaticon.css')}}">
     <link rel="stylesheet" href="{{asset('asset/css/icomoon.css')}}">
     <link rel="stylesheet" href="{{asset('asset/css/style.css')}}">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   	<div class="py-1 bg-black top">
@@ -58,7 +62,7 @@
 	          <li class="nav-item"><a href="#doctor-section" class="nav-link"><span>Doctors</span></a></li>
 	          <li class="nav-item"><a href="#blog-section" class="nav-link"><span>Blog</span></a></li>
 	          <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
-	          <li class="nav-item cta mr-md-2"><a href="appointment.html" class="nav-link">Appointment</a></li>
+	          <li class="nav-item cta mr-md-2"><a data-toggle="modal" data-target="#exampleModalCenter" href="" class="nav-link">Appointment</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -73,159 +77,13 @@
           		<span class="subheading">Welcome to Ehealth</span>
 	            <h1 class="mb-4">We are here <br>for your Care</h1>
 	            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
-	            <p><a href="#" class="btn btn-primary py-3 px-4">Make an appointment</a></p>
+	            <p><a data-toggle="modal" data-target="#exampleModalCenter1" href="#" class="btn btn-primary py-3 px-4">Make an appointment</a></p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-	<!--<section class="ftco-counter img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
-    	<div class="container">
-    		<div class="row d-flex">
-    			<div class="col-md-6 col-lg-5 d-flex">
-    				<div class="img d-flex align-self-stretch align-items-center" style="background-image:url({{asset('asset/images/about.jpg')}});">
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-7 pl-lg-5 py-md-5">
-    				<div class="py-md-5">
-	    				<div class="row justify-content-start pb-3">
-			          <div class="col-md-12 heading-section ftco-animate p-4 p-lg-5">
-			            <h2 class="mb-4">We Are <span>Mediplus</span> A Medical Clinic</h2>
-			            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-			            <p><a href="#" class="btn btn-primary py-3 px-4">Make an appointment</a> <a href="#" class="btn btn-secondary py-3 px-4">Contact us</a></p>
-			          </div>
-			        </div>
-		        </div>
-	        </div>
-        </div>
-    	</div>
-    </section>-->
-
-
-		<!--<section class="ftco-section ftco-no-pt ftco-no-pb ftco-services-2 bg-light">
-			<div class="container">
-        <div class="row d-flex">
-	        <div class="col-md-7 py-5">
-	        	<div class="py-lg-5">
-		        	<div class="row justify-content-center pb-5">
-			          <div class="col-md-12 heading-section ftco-animate">
-			            <h2 class="mb-3">Our Services</h2>
-			          </div>
-			        </div>
-			        <div class="row">
-			        	<div class="col-md-6 d-flex align-self-stretch ftco-animate">
-			            <div class="media block-6 services d-flex">
-			              <div class="icon justify-content-center align-items-center d-flex"><span class="flaticon-ambulance"></span></div>
-			              <div class="media-body pl-md-4">
-			                <h3 class="heading mb-3">Emergency Services</h3>
-			                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-			              </div>
-			            </div>      
-			          </div>
-			          <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-			            <div class="media block-6 services d-flex">
-			              <div class="icon justify-content-center align-items-center d-flex"><span class="flaticon-doctor"></span></div>
-			              <div class="media-body pl-md-4">
-			                <h3 class="heading mb-3">Qualified Doctors</h3>
-			                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-			              </div>
-			            </div>      
-			          </div>
-			          <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-			            <div class="media block-6 services d-flex">
-			              <div class="icon justify-content-center align-items-center d-flex"><span class="flaticon-stethoscope"></span></div>
-			              <div class="media-body pl-md-4">
-			                <h3 class="heading mb-3">Outdoors Checkup</h3>
-			                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-			              </div>
-			            </div>      
-			          </div>
-			          <div class="col-md-6 d-flex align-self-stretch ftco-animate">
-			            <div class="media block-6 services d-flex">
-			              <div class="icon justify-content-center align-items-center d-flex"><span class="flaticon-24-hours"></span></div>
-			              <div class="media-body pl-md-4">
-			                <h3 class="heading mb-3">24 Hours Service</h3>
-			                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-			              </div>
-			            </div>      
-			          </div>
-			        </div>
-			      </div>
-		      </div>
-		      <div class="col-md-5 d-flex">
-	        	<div class="appointment-wrap bg-white p-4 p-md-5 d-flex align-items-center">
-		        	<form action="#" class="appointment-form ftco-animate">
-		        		<h3>Free Consultation</h3>
-		    				<div class="">
-			    				<div class="form-group">
-			    					<input type="text" class="form-control" placeholder="First Name">
-			    				</div>
-			    				<div class="form-group">
-			    					<input type="text" class="form-control" placeholder="Last Name">
-			    				</div>
-		    				</div>
-		    				<div class="">
-		    					<div class="form-group">
-			    					<div class="form-field">
-	          					<div class="select-wrap">
-	                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-	                      <select name="" id="" class="form-control">
-	                      	<option value="">Select Your Services</option>
-	                        <option value="">Neurology</option>
-	                        <option value="">Cardiology</option>
-	                        <option value="">Dental</option>
-	                        <option value="">Ophthalmology</option>
-	                        <option value="">Other Services</option>
-	                      </select>
-	                    </div>
-			              </div>
-			    				</div>
-		    					<div class="form-group">
-			    					<input type="text" class="form-control" placeholder="Phone">
-			    				</div>
-		    				</div>
-		    				<div class="">
-			    				<div class="form-group">
-			    					<div class="input-wrap">
-			            		<div class="icon"><span class="ion-md-calendar"></span></div>
-			            		<input type="text" class="form-control appointment_date" placeholder="Date">
-		            		</div>
-			    				</div>
-			    				<div class="form-group">
-			    					<div class="input-wrap">
-			            		<div class="icon"><span class="ion-ios-clock"></span></div>
-			            		<input type="text" class="form-control appointment_time" placeholder="Time">
-		            		</div>
-			    				</div>
-		    				</div>
-		    				<div class="">
-		    					<div class="form-group">
-			              <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
-			            </div>
-			            <div class="form-group">
-			              <input type="submit" value="Appointment" class="btn btn-secondary py-3 px-4">
-			            </div>
-		    				</div>
-		    			</form>
-		    		</div>
-	        </div>
-		    </div>
-			</div>
-		</section>-->
-
-    <!--<<section class="ftco-intro img" style="background-image: url({{asset('asset/images/bg_2.jpg')}};">
-			<div class="overlay"></div>
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-9 text-center">
-						<h2>Your Health is Our Priority</h2>
-						<p>We can manage your dream building A small river named Duden flows by their place</p>
-						<p class="mb-0"><a href="#" class="btn btn-white px-4 py-3">Search Places</a></p>
-					</div>
-				</div>
-			</div>
-		</section>-->
 @yield('content')
 
 
@@ -275,32 +133,6 @@
 	          </div>
           </div>
         </div>
-        <!--<div class="row no-gutters block-9">
-          <div class="col-md-6 order-md-last d-flex">
-            <form action="#" class="bg-light p-5 contact-form">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Name">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Email">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Subject">
-              </div>
-              <div class="form-group">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-              </div>
-              <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-secondary py-3 px-5">
-              </div>
-            </form>
-          
-          </div>
-
-          <div class="col-md-6 d-flex">
-          	<div id="map" class="bg-white"></div>
-          </div>
-        </div>-->
       </div>
     </section>
 
@@ -382,6 +214,149 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Schedule for appointment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  @auth
+	  @if(auth()->user()->isDoctor())
+	  <form action="{{route('schedules.store')}}" method="POST">
+      <div class="modal-body">
+	  
+	
+			@csrf
+			@if(isset($schedule))
+			  @method('PUT')
+			@endif
+			<div class="form-group">
+				<label for="day">Day</label>
+				<input type="text" name="day" id="day" class="form-control">
+			</div>
+            <div class="form-group">
+				<label for="date">Date</label>
+				<input type="text" name="date" id="date" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label for="start_time">Start Time</label>
+				<input type="text" name="start_time" id="start_time" class="form-control">
+			</div>
+
+     <div class="form-group">
+				<label for="end_time">End Time</label>
+				<input type="text" name="end_time" id="end_time" class="form-control">
+			</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+	  </form>
+	  @else
+	   <strong style="margin-left: 16px;font-size: 20px;color: #2b2727;font-weight: 400;">Sorry, Only doctor can make an appointment</strong>
+	   @endif
+	   @else
+	   <strong style="margin-left: 16px;font-size: 20px;color: #2b2727;font-weight: 400;">Please <a href="{{route('login')}}"><u> Login</u></a> first for create an appointment </strong>
+
+	   @endauth
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div style="height:80%;" class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div style="max-height: calc(100% - 120px); overflow-y: scroll;" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle"> Appointment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  @auth
+	  @if(auth()->user()->isDoctor())
+    @if($bookings->count()>0)
+	  
+
+    <table class="table">
+		  <thead>
+            <th>Status</th>
+		  	    <th>Id</th>
+		       	<th>User Id</th>
+		      	<th>Schedule Id</th>
+            <th>Start time</th>
+            <th>End Time</th>
+		  </thead> 
+		  <tbody>
+		  	@foreach($bookings as $row)
+		  	<tr>
+            <td>
+              
+			  @if($row->status==0)
+			  <i style="margin-right:3px;" class="fa fa-times" aria-hidden="true"></i>
+			  <a href="{{route('appointment.change-status',$row->id)}}">Accept</a>
+                
+                @else
+				<i class="fa fa-check" aria-hidden="true"></i>
+				<a href="{{route('appointment.change-status',$row->id)}}">Accepted</a>
+				
+                @endif
+               
+            </td>
+            <td>{{$row->id}}</td>
+            <td>{{$row->user_id}}</td>
+            <td>{{$row->schedule_id}}</td>
+            <td>{{$row->schedule->start_time}}</td>
+            <td>{{$row->schedule->end_time}}</td>
+				  
+		  	</tr>
+		  	@endforeach
+		  </tbody>
+      
+		</table>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
+    @else
+      <h3 class="text-center">No appointment are available</h3>
+	  @endif
+	  @else
+	   <strong style="margin-left: 16px;font-size: 20px;color: #2b2727;font-weight: 400;">Sorry, Only doctor can make an appointment</strong>
+	   @endif
+	   @else
+	   <strong style="margin-left: 16px;font-size: 20px;color: #2b2727;font-weight: 400;">Please <a href="{{route('login')}}"><u> Login</u></a> first for create an appointment </strong>
+
+	   @endauth
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script type="text/javascript">
+	flatpickr('#start_time',{
+		enableTime:true
+    });
+    flatpickr('#end_time',{
+		enableTime:true
+    });
+    flatpickr('#date',{
+		enableTime:true
+	});
+</script>
 
   <script src="{{asset('asset/js/jquery.min.js')}}"></script>
   <script src="{{asset('asset/js/jquery-migrate-3.0.1.min.js')}}"></script>
@@ -399,6 +374,9 @@
   <script src="{{asset('asset/js/google-map.js')}}"></script>
   
   <script src="{{asset('asset/js/main.js')}}"></script>
-    
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/ffa467bf54.js"></script>
   </body>
 </html>

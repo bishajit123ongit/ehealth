@@ -27,23 +27,25 @@
   <link rel="stylesheet" href="{{asset('frontend/fontawesome/css/fontawesome.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav style="background: #343a40;" class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a style="color:#ffffff;" class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a style="color:#ffffff;" href="index3.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a style="color:#ffffff;" href="#" class="nav-link">Contact</a>
       </li>
     </ul>
 
@@ -51,8 +53,10 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
+      <a href="{{ route('users.edit-profile') }}"><img style="width:35px; height:35px;" src="{{asset(auth()->user()->image)}}" class="img-circle elevation-2" alt="User Image"></a>
       <li class="nav-item dropdown">
-      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+      
+      <a style="color:#ffffff;" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
            
            {{Auth::user()->name}}      
         <span class="caret"></span>
@@ -71,6 +75,11 @@
                                         Doctor Profile
                      </a>
                      @endif
+
+                     <a data-toggle="modal" data-target="#exampleModalCenter" class="dropdown-item" href="#">
+                     <i class="fas fa-unlock-alt"></i>
+                                        Change Password
+                     </a>
 
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
@@ -116,7 +125,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview {{ (request()->is('dashboard')) ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -126,7 +135,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
+                <a href="{{route('dashboard.all')}}" class="nav-link {{ (request()->is('dashboard')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
                 </a>
@@ -172,7 +181,6 @@
           @endauth
 
           @auth
-          @if(auth()->user()->isAdmin())
           <li class="nav-item has-treeview {{ (request()->is('types/create')) ||(request()->is('types')) ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
             <i style="margin-right: 8px; margin-left:5px;"class="fa fa-tags" aria-hidden="true"></i>
@@ -181,13 +189,17 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            
+          
             <ul class="nav nav-treeview">
+            @if(auth()->user()->isAdmin())
               <li class="nav-item">
                 <a href="{{route('types.create')}}" class="nav-link {{ (request()->is('types/create')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add type</p>
                 </a>
               </li>
+              @endif
            
               <li class="nav-item">
                 <a href="{{route('types.index')}}" class="nav-link {{ (request()->is('types')) ? 'active' : '' }}">
@@ -197,12 +209,12 @@
               </li>
           </ul>
       </li>
-          @endif
+         
           @endauth
 
    
         
-          @if(auth()->user()->isAdmin())
+         
           <li class="nav-item">
             <a href="{{route('users.index')}}" class="nav-link {{ (request()->is('users')) ? 'active' : '' }}">
             <i class="nav-icon fa fa-users" aria-hidden="true"></i>
@@ -211,19 +223,6 @@
               </p>
             </a>
           </li>
-          @endif
-
-          @if(auth()->user()->isDoctor())
-          <li class="nav-item">
-            <a href="{{route('users.index')}}" class="nav-link {{ (request()->is('users')) ? 'active' : '' }}">
-            <i class="nav-icon fa fa-users" aria-hidden="true"></i>
-              <p>
-               Users
-              </p>
-            </a>
-          </li>
-          @endif
-
           
           @auth
           <li class="nav-item has-treeview {{ (request()->is('view/adminrequest')) || (request()->is('view/request')) ||  (request()->is('request/admin')) || (request()->is('create/doctorrequest'))? 'menu-open' : '' }}">
@@ -324,37 +323,6 @@
       </li>
           @endif
           @endauth
-          
-
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Charts
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-            </ul>
-          </li>
 
           @auth
           @if(auth()->user()->isAdmin())
@@ -414,15 +382,69 @@
     </div>
   </footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
 
-<!-- jQuery -->
+  <aside class="control-sidebar control-sidebar-dark">
+  </aside>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Change Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	
+	  <form action="{{route('change.password')}}" method="POST">
+    @csrf
+      <div class="modal-body">
+			<div class="form-group">
+				<label for="oldpassword">Old password</label>
+				<input type="password" name="oldpassword" id="oldpassword" class="form-control" @error('password') is-invalid @enderror required autocomplete="current-password" minlength="8"/>
+			</div>
+      @error('password')
+        <span class="invalid-feedback color" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+      @enderror
+
+      <div class="form-group">
+				<label for="newpassword">New password</label>
+				<input type="password" name="newpassword" id="newpassword" class="form-control" @error('newpassword') is-invalid @enderror required autocomplete="new-password"/ minlength="8">
+			</div>
+      @error('newpassword')
+        <span class="invalid-feedback color" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+      @enderror
+
+      <div class="form-group">
+				<label for="retypenewpassword">Retype new password</label>
+				<input type="password" name="retypenewpassword" id="retypenewpassword" class="form-control" @error('retypenewpassword') is-invalid @enderror required autocomplete="retypenew-password"/ minlength="8">
+			</div>
+      @error('retypenewpassword')
+        <span class="invalid-feedback color" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+      @enderror
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+	  </form>
+    </div>
+  </div>
+</div>
+
+
+
+
 <script src="{{asset('frontend/menu/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('frontend/menu/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
@@ -457,6 +479,11 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('frontend/menu/dist/js/demo.js')}}"></script>
 <script src="https://use.fontawesome.com/ffa467bf54.js"></script>
+
+
+<!-- Modal -->
+
+
 @yield('scripts')
 </body>
 </html>

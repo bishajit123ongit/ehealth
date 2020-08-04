@@ -24,10 +24,14 @@
 		  		<td>
 		  			{{$type->user()->count()}}
 		  		</td>
+
+				  @if(auth()->user()->isAdmin())
 		  		<td>
 		  			<a href="{{route('types.edit',$type->id)}}" class="btn btn-info btn-sm "><i style="margin-right:3px;" class="far fa-edit"></i>Edit</a>
 		  			<button class="btn btn-danger btn-sm" onclick="handleDelete({{$type->id}})"><i style="margin-right:3px;" class="fas fa-trash-alt"></i>Delete</button>
 		  		</td>
+
+				  @endif
 		  	</tr>
 		  	@endforeach
 		  </tbody>
