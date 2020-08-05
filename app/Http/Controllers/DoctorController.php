@@ -143,7 +143,8 @@ class DoctorController extends Controller
                 'type_id'=>$request->type,
                 'qualification'=>$request->qualification,
                 'mobile'=>$request->mobile,
-                'image'=>$image_url
+                'image'=>$image_url,
+                'address'=>$request->address
               ]);
             }
             else{
@@ -152,7 +153,8 @@ class DoctorController extends Controller
             'name'=>$request->name,
             'type_id'=>$request->type,
             'qualification'=>$request->qualification,
-            'mobile'=>$request->mobile
+            'mobile'=>$request->mobile,
+            'address'=>$request->address
         ]);
         }
         session()->flash('success','Doctor updated successfully!');

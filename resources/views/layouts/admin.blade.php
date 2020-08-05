@@ -48,6 +48,18 @@
         <a style="color:#ffffff;" href="#" class="nav-link">Contact</a>
       </li>
     </ul>
+    
+    @if(auth()->user()->isUser() && auth()->user()->address==null)
+
+     <h6 style="color:white;margin-left:30px;margin-top:8px;">Please complete your <a  href="{{ route('users.edit-profile') }}">profile</a> </h6>
+    @endif
+
+    @if(auth()->user()->isDoctor() && auth()->user()->address==null)
+
+     <h6 style="color:white;margin-left:30px;margin-top:8px;">Please complete your <a  href="{{route('doctors.edit',auth()->user()->id)}}">profile</a> </h6>
+    @endif
+
+
 
 
     <!-- Right navbar links -->
@@ -286,7 +298,7 @@
           @if(auth()->user()->isDoctor())
           <li class="nav-item has-treeview {{ (request()->is('schedules/create')) || (request()->is('schedules')) || (request()->is('bookings')) || (request()->is('appointment/list'))  ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
-            <i style="margin-right: 8px; margin-left:5px;"class="fa fa-tags" aria-hidden="true"></i>
+            <i class="nav-icon fas fa-clock"></i>
               <p>
                 Schedule
                 <i class="fas fa-angle-left right"></i>

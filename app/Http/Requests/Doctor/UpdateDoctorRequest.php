@@ -27,7 +27,8 @@ class UpdateDoctorRequest extends FormRequest
             'name' => 'required',
             'type' => 'required',
             'qualification'=>'required',
-            'mobile'=>'required'
+            'mobile'=>'required',
+            'address'=>'required'
         ];
     }
 }

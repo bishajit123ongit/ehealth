@@ -90,14 +90,14 @@ th {
 
     <div>
         <div style="display:inline-block;">
-         <strong style="margin-top:45px;"class="bookmsg">Booking from</strong><br>
-         <p class="bookpar">{{$user->name}} Desg: Patient<br> Chanmia Munsi Lane, Dc Road <br> Chattagram, Bangladesh</p>
+         <strong style="margin-top:45px; width:320px;"class="bookmsg">Booking from</strong><br>
+         <p style="width:320px;" class="bookpar">{{$user->name}} Desg: Patient<br> {{$user->address}} <br> Mobile-no {{$user->mobile}} <br> Ehealth, Bangladesh</p>
 
         </div>
 
         <div style="display:inline-block;float:right;">
          <strong style="margin-top:10px;" class="bookmsg">Booking to</strong><br>
-         <p class="bookpar">{{$doctor->name}} Dept: {{$doctor->type->name}}<br> Chanmia Munsi Lane, Dc Road <br> Chattagram, Bangladesh</p>
+         <p class="bookpar">{{$doctor->name}} Dept: {{$doctor->type->name}}<br> {{$doctor->address}} <br> Mobile-no: {{$doctor->mobile}} <br> Ehealth, Bangladesh</p>
         </div>
 
     </div>
@@ -111,7 +111,7 @@ th {
     </div>
 
     <div>
-        <p style="margin-top:10px; font-size:18px; font-family:cursive;">Dear {{$user->name}},<br><br>We are pleased to inform you, your appoint is booking successfully. Thanks for 
+        <p style="margin-top:10px; font-size:16px; font-family:cursive;">Dear {{$user->name}},<br><br>We are pleased to inform you, your appoint is booking successfully. Thanks for 
       trust us. <br> Please come exact schedule time and brings the copy of this recipt<br> Your schedule imformation given below
     </p>
     </div>
@@ -152,7 +152,7 @@ th {
     </div>
     <div>
       <strong class="info">Other information</strong>
-      <p style="margin-top:10px; font-size:18px; font-family:cursive;">The Online Doctor Appointment Form simplifies the process of scheduling appointments with new and recurring patients through 
+      <p style="margin-top:10px; font-size:16px; font-family:cursive;">The Online Doctor Appointment Form simplifies the process of scheduling appointments with new and recurring patients through 
           collecting relevant information as the date of appointment, appointment type, patient name and contact information, and latest 
           attend information if any. Customize the template with apps, widgets, and themes through the JotForm builder and create a HIPAA 
           compliant Appointment Form today.</p>

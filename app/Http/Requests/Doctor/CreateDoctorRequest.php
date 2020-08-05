@@ -29,7 +29,8 @@ class CreateDoctorRequest extends FormRequest
             'password' => 'required',
             'type' => 'required',
             'qualification'=>'required',
-            'image'=>'required|image'
+            'image'=>'required|image',
+            'address'=>'required'
         ];
     }
 }

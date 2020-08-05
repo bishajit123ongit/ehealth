@@ -94,6 +94,11 @@
 			</div>
 
 			<div class="form-group">
+				<label for="address">Address</label>
+                <input type="text" name="address" id="address"  value="{{isset($doctor)? $doctor->address : ''}}" class="form-control" required autocomplete="address">
+			</div>
+
+			<div class="form-group">
 				<button type="submit" class="btn btn-success">
 				
 				  @if(isset($doctor))

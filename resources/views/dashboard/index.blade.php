@@ -51,9 +51,9 @@ var chart2 = new CanvasJS.Chart("chartContainer2", {
 		yValueFormatString: "##0.00\"%\"",
 		indexLabel: "{label} {y}",
 		dataPoints: [
-			{y: <?php echo (($types->count()*100)/($types->count()+$doctorRequest->count()+$bookings->count()));?>, label: "Types"},
-			{y: <?php echo (($doctorRequest->count()*100)/($types->count()+$doctorRequest->count()+$bookings->count()));?>, label: "Live conversation"},
-			{y: <?php echo (($bookings->count()*100)/($bookings->count()+$doctorRequest->count()+$bookings->count()));?>, label: "Booking"}
+			{y: <?php echo ($types->count()==0? 0 : ($types->count()*100)/($types->count()+$doctorRequest->count()+$bookings->count()));?>, label: "Types"},
+			{y: <?php echo ($doctorRequest->count()==0? 0 : ($doctorRequest->count()*100)/($types->count()+$doctorRequest->count()+$bookings->count()));?>, label: "Live conversation"},
+			{y: <?php echo ($bookings->count() == 0 ? 0 : ($bookings->count()*100)/($bookings->count()+$doctorRequest->count()+$bookings->count()));?>, label: "Booking"}
 		]
 	}]
 });

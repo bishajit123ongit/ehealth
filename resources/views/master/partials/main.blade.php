@@ -214,11 +214,6 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-  <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -338,7 +333,7 @@
 	   <strong style="margin-left: 16px;font-size: 20px;color: #2b2727;font-weight: 400;">Sorry, Only doctor can make an appointment</strong>
 	   @endif
 	   @else
-	   <strong style="margin-left: 16px;font-size: 20px;color: #2b2727;font-weight: 400;">Please <a href="{{route('login')}}"><u> Login</u></a> first for create an appointment </strong>
+	   <strong style="margin-left: 16px;font-size: 20px;color: #2b2727;font-weight: 400;">Please <a href="{{route('login')}}"><u> Login</u></a> first for view accept request for an appointment </strong>
 
 	   @endauth
     </div>

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->text('about')->nullable();
             $table->string('qualification')->nullable();
             $table->string('mobile')->nullable();
+            $table->string('address')->nullable();
             $table->integer('type_id')->default(0);
             $table->string('image')->default('image/user.png');
             $table->integer('requeststatus')->default(0);

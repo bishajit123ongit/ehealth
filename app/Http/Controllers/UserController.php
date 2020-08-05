@@ -37,7 +37,9 @@ class UserController extends Controller
             $user->update([
                 'name'=>$request->name,
                 'about'=>$request->about,
-                'image'=>$image_url
+                'image'=>$image_url,
+                'mobile'=>$request->mobile,
+                'address'=>$request->address
               ]);
             }
         else{
@@ -45,6 +47,8 @@ class UserController extends Controller
         $user->update([
           'name'=>$request->name,
           'about'=>$request->about,
+          'mobile'=>$request->mobile,
+          'address'=>$request->address
         ]);
         }
         session()->flash('success','User Updated successfully!!');
