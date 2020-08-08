@@ -74,6 +74,8 @@ Route::middleware(['auth'])->group(function(){
   Route::get('dashboard','DashboardController@index')->name('dashboard.all');
   Route::resource('types','TypeController');
 
+  Route::post('prescription/mail', 'MailController@sendPrescribeEmail')->name('prescription.email');
+
 });
 
 
