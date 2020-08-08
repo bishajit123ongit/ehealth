@@ -7,6 +7,8 @@ use App\Schedule;
 use App\Booking;
 use App\Http\Requests\Schedule\CreateScheduleRequest;
 use App\Http\Requests\Schedule\UpdateScheduleRequest;
+use App\Http\Controllers\MailController;
+use App\User;
 
 class ScheduleController extends Controller
 {
@@ -157,6 +159,13 @@ class ScheduleController extends Controller
             $booking->status=0;
         }
         $booking->save();
+        $user=User::all()->where('id',$booking->user_id)->first();
+        $doctor=User::all()->where('id',$booking->doctor_id)->first();
+
+        if($booking->status==1){
+            MailController::sendBookingEmail($user->name, $user->email,$doctor->name,$doctor->type->name);
+        }
+
         return redirect(route('bookings.index'));
 
     }

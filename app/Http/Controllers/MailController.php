@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\PrescribeEmail;
+use App\Mail\BookingEmail;
 use Illuminate\Support\Facades\Mail;
 use App\User;
 
@@ -29,5 +30,14 @@ class MailController extends Controller
             return redirect()->back();
         }
        // Mail::to('oviomps@gmail.com')->send(new PrescribeEmail($data));
+    }
+
+    public static function sendBookingEmail($name,$email,$doctorname,$typename){
+        $data=[
+            'name'=> $name,
+            'doctorname'=>$doctorname,
+            'typename'=>$typename
+        ];
+         Mail::to($email)->send(new BookingEmail($data));
     }
 }

@@ -16,9 +16,9 @@ class BookingEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->booking_data=$data;
     }
 
     /**
@@ -28,6 +28,8 @@ class BookingEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->from(env('MAIL_USERNAME'),'Booking')
+        ->subject('Confirm booking ',auth()->user()->name)
+        ->view('mail.booking',['booking_data' => $this->booking_data]);
     }
 }

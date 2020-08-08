@@ -85,6 +85,7 @@ class DoctorController extends Controller
         $user->type_id=$request->type;
         $user->qualification=$request->qualification;
         $user->mobile=$request->mobile;
+        $user->address=$request->address;
         $user->role='doctor';
         $user->image=$image_url;
         $user->save();
