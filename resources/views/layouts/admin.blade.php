@@ -42,10 +42,10 @@
         <a style="color:#ffffff;" class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a style="color:#ffffff;" href="index3.html" class="nav-link">Home</a>
+        <a style="color:#ffffff;" href="{{route('welcome')}}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a style="color:#ffffff;" href="#" class="nav-link">Contact</a>
+        <a style="color:#ffffff;" href="{{route('contact')}}" class="nav-link">Contact</a>
       </li>
     </ul>
     
@@ -356,6 +356,32 @@
             <i class="nav-icon far fa-comments"></i>
               <p>
                Given Feedback
+              </p>
+            </a>
+          </li>
+          @endif
+          @endauth
+
+          @auth
+          @if(auth()->user()->isUser())
+          <li class="nav-item">
+            <a href="{{route('send.report')}}" class="nav-link {{ (request()->is('send/report')) ? 'active' : '' }}">
+            <i class="nav-icon fas fa-file-medical-alt"></i>
+              <p>
+               Send Report
+              </p>
+            </a>
+          </li>
+          @endif
+          @endauth
+
+          @auth
+          @if(auth()->user()->isDoctor())
+          <li class="nav-item">
+            <a href="{{route('view.report')}}" class="nav-link {{ (request()->is('view/report')) ? 'active' : '' }}">
+            <i class="nav-icon fas fa-file-medical-alt"></i>
+              <p>
+               View Report
               </p>
             </a>
           </li>

@@ -53,4 +53,15 @@ class DoctorsRequestController extends Controller
        session()->flash('success','Patients request successfully send to the doctor!');
        return redirect()->back();
     }
+
+    public function trash($id){
+
+        $doctorRequest=DoctorsRequest::all()->where('id',$id)->first();
+        $doctorRequest->status=1;
+        $doctorRequest->save();
+        session()->flash('success','Request send to the trash successfully!');
+        return redirect()->back();
+
+
+    }
 }

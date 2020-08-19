@@ -21,6 +21,7 @@
             <th>Patient Age</th>  
             <th>Patient Disease</th>
             <th>Patient Symtomps</th>
+			<th>Action</th>
 		  </thead> 
 		  <tbody>
 		  	@foreach($doctorsRequest as $row)
@@ -35,6 +36,7 @@
             <td>{{$row->patientRequest['age']}}</td>  
             <td>{{$row->patientRequest['disease']}}</td> 
             <td>{{$row->patientRequest['symtomps']}}</td> 
+			<td><a href="{{route('trash.doctor_request',$row->id)}}" class="btn btn-info btn-sm"><i class="fas fa-trash"></i></a></td>
 		  	</tr>
 		  	@endforeach
 		  </tbody>

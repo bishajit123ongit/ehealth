@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\PrescribeEmail;
+use App\Mail\SuggestionEmail;
 use App\Mail\BookingEmail;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use App\Report;
 
 class MailController extends Controller
 {
@@ -30,6 +32,19 @@ class MailController extends Controller
             return redirect()->back();
         }
        // Mail::to('oviomps@gmail.com')->send(new PrescribeEmail($data));
+    }
+
+    public function sendSuggestion(Request $request,$id){
+       $report=Report::all()->where('id',$id)->first();
+       $user=User::all()->where('id',$report->user_id)->first();
+       $data=[
+        'name'=> $user->name,
+        'doctorname'=>auth()->user()->name,
+        'description'=>$request->description
+    ];
+       Mail::to($user->email)->send(new SuggestionEmail($data));
+       session()->flash('success','Suggestion send to the patient email successfully!');
+       return redirect()->back();
     }
 
     public static function sendBookingEmail($name,$email,$doctorname,$typename){

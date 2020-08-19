@@ -75,7 +75,16 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('types','TypeController');
 
   Route::post('prescription/mail', 'MailController@sendPrescribeEmail')->name('prescription.email');
+  Route::post('patient/{id}/suggestion', 'MailController@sendSuggestion')->name('patients.suggestion');
 
+  Route::get('send/report','ReportController@create')->name('send.report');
+  Route::post('store/report','ReportController@store')->name('store.report');
+  Route::get('view/report','ReportController@index')->name('view.report');
+  Route::get('view/{id}/report','ReportController@show')->name('report.view');
+  Route::get('report/{id}/destroy','ReportController@destroy')->name('report.destroy');
+  Route::get('trash/{id}/doctorrequest','DoctorsRequestController@trash')->name('trash.doctor_request');
+  Route::get('contact','ReportController@contact')->name('contact');
+  Route::get('pateientrequest/{id}/destroy','PatientRequestController@destroy')->name('pateientrequest.destroy');
 });
 
 

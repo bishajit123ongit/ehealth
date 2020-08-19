@@ -38,4 +38,11 @@ class PatientRequestController extends Controller
         $patientRequest->save();
         return redirect(route('patient-request.view'));
     }
+
+    public function destroy($id){
+        $patientRequest=PatientRequest::where('id',$id)->first();
+        $patientRequest->delete();
+        session()->flash('success','Request successfully deleted!');
+        return redirect()->back();
+    }
 }

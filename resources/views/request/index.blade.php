@@ -18,6 +18,7 @@
 		  	<th>Disease</th>
             <th>Symtomps</th>
             <th>Age</th>
+			<th></th>
 		  </thead> 
 		  <tbody>
 		  	@foreach($patientRequests as $row)
@@ -40,6 +41,8 @@
             <td>{{$row->disease}}</td>
             <td>{{$row->symtomps}}</td>
             <td>{{$row->age}}</td>
+
+			<td><a href="{{route('pateientrequest.destroy',$row->id)}}" class="btn btn-info btn-sm"><i class="fas fa-trash"></i></a></td>
 				  
 		  	</tr>
 		  	@endforeach
