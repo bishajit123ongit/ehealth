@@ -28,7 +28,7 @@
 		  	<tr>
             <td>
               
-			  <a href="{{route('connect.patient', $row->doctor_id)}}">Yes</a>
+			  <a href="{{route('connect.patient', $row->id)}}">Yes</a>
                
             </td>
 		  	<td>{{$row->patientRequest['id']}}</td>

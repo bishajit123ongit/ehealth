@@ -7,6 +7,7 @@
     <title>Document</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    
     <style>
 		.list-group{
 			overflow-y: scroll;
@@ -24,9 +25,12 @@
         <div class="row" id="app">
                 <div class="col-sm-8">
                     <div class="card">
-                        <div class="card-header">We Code Messenger</div>
-        
+                        <div class="card-header">We Code Messenger
+                        <i style="font-size:25px; float:right;" class="fa fa-phone" aria-hidden="true"></i>
+                        <i style="font-size:25px; float:right; margin-right:25px;" class="fa fa-video-camera" aria-hidden="true"></i>
+                        </div>
                         <div style="background:#bbc1c7;"class="card-body">
+                        
                             <example-message :user="{{ auth()->user() }}"></example-message>
                         </div>
                     </div>
@@ -92,5 +96,6 @@
 
 
 <script src="{{asset('js/app.js')}}"></script>
+<script src="https://use.fontawesome.com/ffa467bf54.js"></script>
 </body>
 </html>

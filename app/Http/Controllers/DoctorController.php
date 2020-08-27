@@ -44,9 +44,9 @@ class DoctorController extends Controller
     }
 
     public function connectPatient($id){
-         $user=User::all()->where('id',$id)->first();
-         $user->requeststatus=1;
-         $user->save();
+        $doctor_request=DoctorsRequest::all()->where('id',$id)->first();
+         $doctor_request->status=1;
+         $doctor_request->save();
          return redirect(route('chat'));
 
     }
@@ -70,29 +70,36 @@ class DoctorController extends Controller
     public function store(CreateDoctorRequest $request)
     {
         //upload the file to the storage
-        $image=$request->file('image');
-        $image_name=hexdec(uniqid());
-        $ext=strtolower($image->getClientOriginalExtension());
-        $image_full_name=$image_name.'.'.$ext;
-        $upload_path='image/';
-        $image_url=$upload_path.$image_full_name;
-        $success=$image->move($upload_path,$image_full_name);
-
-        $user=new User();
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->password=Hash::make($request->password);
-        $user->type_id=$request->type;
-        $user->qualification=$request->qualification;
-        $user->mobile=$request->mobile;
-        $user->address=$request->address;
-        $user->role='doctor';
-        $user->image=$image_url;
-        $user->save();
-
-        session()->flash('success','Doctor add successfully!');
-
-        return redirect(route('doctors.index'));
+        $exitsUser=User::all()->where('email',$request->email)->first();
+        if($exitsUser==null)
+        {
+            $image=$request->file('image');
+            $image_name=hexdec(uniqid());
+            $ext=strtolower($image->getClientOriginalExtension());
+            $image_full_name=$image_name.'.'.$ext;
+            $upload_path='image/';
+            $image_url=$upload_path.$image_full_name;
+            $success=$image->move($upload_path,$image_full_name);
+    
+            $user=new User();
+            $user->name=$request->name;
+            $user->email=$request->email;
+            $user->password=Hash::make($request->password);
+            $user->type_id=$request->type;
+            $user->qualification=$request->qualification;
+            $user->mobile=$request->mobile;
+            $user->address=$request->address;
+            $user->role='doctor';
+            $user->image=$image_url;
+            $user->save();
+    
+            session()->flash('success','Doctor add successfully!');
+            return redirect(route('doctors.index'));
+        }
+        else{
+            session()->flash('error','Doctor already exists!');
+            return redirect(route('doctors.index'));
+        }
     }
 
     /**
